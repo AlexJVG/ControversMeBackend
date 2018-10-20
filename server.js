@@ -1,13 +1,15 @@
 const express = require('express');
+
 const app = express();
-const path = require('path')
-//const http = require('http').Server(app)
-const io = require('socket.io');
-const public = path.join(__dirname, 'public')
+const path = require('path');
+
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+
 const database = new (require('./lib/Database.js'));
 const responses = require('./lib/responses.js');
 
-app.use('/', express.static(public));
+app.use('/', express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
 
@@ -36,11 +38,10 @@ app.get('*', (req, res) => {
 	res.send(responses.error('404 Not Found'));
 });
 
-app.listen(8080);
+server.listen(8080);
 
 
-//io socket
-
-io.socket.on('connection', function(socket){
-	console.log("a new client connected")
-})
+// io socket
+io.on('connection', socket => {
+	console.log("a new client connected");
+});
