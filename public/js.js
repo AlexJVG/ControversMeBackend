@@ -1,8 +1,9 @@
+var room = 'room'
 function test() {
     var socket = io();
   $('form').submit(function(){
     socket.connect()
-    socket.emit('chat message', JSON.stringify(['room', $('#m').val()]));
+    socket.emit('chat message', JSON.stringify([room, $('#m').val()]));
     $('#m').val('');
     return false;
   });
