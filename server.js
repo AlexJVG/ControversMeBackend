@@ -1,17 +1,26 @@
 const express = require('express');
 const app = express();
-const Database = require('./lib/Database.js');
 const path = require('path')
 //const http = require('http').Server(app)
 const io = require('socket.io');
 const public = path.join(__dirname, 'public')
+const database = new (require('./lib/Database.js'));
+const responses = require('./lib/responses.js');
 
 app.use("/", express.static(public));
 
+app.use(express.json());
 
-app.get('/', (req, res) => {
+app.get('/api/create-account', (req, res) => {
 
-	res.send('hello');
+	const firstName = req.body.first_name;
+	const lastName = req.body.last_name;
+	const email = req.body.email;
+	const bio = req.body.bio;
+
+	database.addNewUser(firstName, lastName, email, bio);
+
+	res.send(responses.success());
 
 });
 
@@ -21,10 +30,8 @@ app.get('/egor/:hello', (req, res) => {
 
 });
 
-app.get('/eggtest2', (req, res) => {
-	res.sendFile(path.join(public, 'basic.html'));
-	
-
+app.get('*', (req, res) => {
+	res.send(responses.error('404 Not Found'));
 });
 
 app.listen(8080);
