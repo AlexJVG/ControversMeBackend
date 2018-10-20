@@ -1,4 +1,4 @@
-var room = 'room'
+window.room = 'room'
 function test() {
     var socket = io();
   $('form').submit(function(){
