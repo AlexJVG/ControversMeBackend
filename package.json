@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/AlexJVG/ControversMeBackend#readme",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "nodemailer": "^4.6.8",
+    "nodemon": "^1.18.4",
+    "socket.io": "^2.1.1"
   }
 }
