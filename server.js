@@ -35,3 +35,10 @@ app.get('*', (req, res) => {
 });
 
 app.listen(8080);
+
+
+//io socket
+
+io.socket.on('connection', function(socket){
+	console.log("a new client connected")
+})
