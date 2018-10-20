@@ -30,17 +30,4 @@ server.listen(8080);
 
 
 // io socket
-
-io.on('connection', socket => {
-	socket.on("chat message", function(arr){
-		let [id, msg] = JSON.parse(arr)
-		console.log(id)
-		socket.join(id)
-		socket.to(id).emit('chat message', msg);
-		socket.emit('chat message', msg);
-		console.log("send: ", msg)
-	});
-	socket.on("leave", function(id){
-		socket.leave(id);
-	});
-});
+io.on('connection', require('./lib/socket.js'));
