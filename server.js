@@ -32,16 +32,13 @@ server.listen(8080);
 // io socket
 
 io.on('connection', socket => {
-	socket.on('join', room => {
-    	socket.join(room);
-    });
 	socket.on("chat message", function(arr){
 		console.log(arr)
 		let [id, msg] = JSON.parse(arr)
 		console.log(id)
 		socket.join(id)
-		socket.broadcast.to(id).emit('chat message', msg);
-		socket.emit('chat message', msg);
+		socket.to(id).emit('chat message', msg);
+		socket.emit('chat message', msg)
 		console.log("send: ", msg)
 	})
 

@@ -1,7 +1,6 @@
 function test() {
     var socket = io();
-  $('form').submit(function(e){
-    e.preventDefault()
+  $('form').submit(function(){
     socket.connect()
     socket.emit('chat message', JSON.stringify(['room', $('#m').val()]));
     $('#m').val('');
