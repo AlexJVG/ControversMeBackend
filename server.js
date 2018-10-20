@@ -19,15 +19,12 @@ app.use(cors({
 }));
 
 app.use('/', express.static(path.join(__dirname, 'public')));
-app.use('/api', require('./lib/routes/api.js'));
+app.use('/api', require('./lib/routes/api.js').router);
+
+io.on('connection', require('./lib/routes/api.js').socketResponse);
 
 app.all('*', (req, res) => {
 	res.send(responses.error(404));
 });
 
-
 server.listen(8080);
-
-
-// io socket
-io.on('connection', require('./lib/socket.js'));
