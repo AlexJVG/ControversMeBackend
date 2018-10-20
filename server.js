@@ -24,8 +24,6 @@ app.use(cors({
 
 app.post('/api/create-account', (req, res) => {
 
-	console.log(req.body);
-
 	const firstName = req.body.first_name;
 	const lastName = req.body.last_name;
 	const username = req.body.username;
@@ -33,15 +31,19 @@ app.post('/api/create-account', (req, res) => {
 	const bio = req.body.bio;
 	const password = req.body.password;
 
+	console.log(req.body);
+
 	if (firstName && lastName && username && bio && password) {
-		database.addNewUser(firstName, lastName, username, email, bio, password);
-		res.send(responses.success());
-		
+		if (database.addNewUser(firstName, lastName, username, email, bio, password)) {
+			res.send(responses.success());
+		} else {
+			res.send(responses.error('user_already_exists'));
+		}
+
 	} else {
-		res.send(responses.error('user_already_exists'));
+		res.send(responses.error('bad_data'));
 	}
-
-
+	
 });
 
 app.get('/egor/:hello', (req, res) => {
