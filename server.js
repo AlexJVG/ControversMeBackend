@@ -33,14 +33,16 @@ server.listen(8080);
 
 io.on('connection', socket => {
 	socket.on("chat message", function(arr){
-		console.log(arr)
 		let [id, msg] = JSON.parse(arr)
 		console.log(id)
 		socket.join(id)
 		socket.to(id).emit('chat message', msg);
-		socket.emit('chat message', msg)
+		socket.emit('chat message', msg);
 		console.log("send: ", msg)
-	})
+	});
+	socket.on("leave", function(id){
+		socket.leave(id);
+	});
 
 // 	socket.on('disconnect', function(){
 //     io.emit('users-changed', {user: socket.nickname, event: 'left'});   
