@@ -6,7 +6,7 @@ const responses = require('./lib/responses.js');
 
 app.use(express.json());
 
-app.get('/api/create-account', (req, res) => {
+app.post('/api/create-account', (req, res) => {
 
 	const firstName = req.body.first_name;
 	const lastName = req.body.last_name;
