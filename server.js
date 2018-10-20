@@ -6,6 +6,8 @@ const path = require('path');
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
+const responses = require('../responses.js');
+
 const cors = require('cors');
 app.use(express.json());
 
