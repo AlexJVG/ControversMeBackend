@@ -34,7 +34,9 @@ io.on('connection', socket => {
     	socket.join(room);
     });
 	socket.on("chat message", function(arr){
-		var id, msg = arr
+		console.log(arr)
+		let [id, msg] = JSON.parse(arr)
+		console.log(id)
 		socket.join(id)
 		socket.broadcast.to(id).emit('chat message', msg);
 		socket.emit('chat message', msg);

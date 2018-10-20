@@ -1,12 +1,9 @@
-
-
 function test() {
     var socket = io();
   $('form').submit(function(e){
     e.preventDefault()
     socket.connect()
-    socket.emit('join', 'room');
-    socket.emit('chat message', $('#m').val());
+    socket.emit('chat message', JSON.stringify(['room', $('#m').val()]));
     $('#m').val('');
     return false;
   });
