@@ -19,8 +19,8 @@ app.use(cors({
 app.use('/', express.static(path.join(__dirname, 'public')));
 app.use('/api', require('./lib/routes/api.js'));
 
-app.get('*', (req, res) => {
-	res.send(responses.error('404 Not Found'));
+app.all('*', (req, res) => {
+	res.send(responses.error(404));
 });
 
 
@@ -30,6 +30,7 @@ server.listen(8080);
 // io socket
 
 io.on('connection', socket => {
+
 	io.sockets.in("room").emit('connectToRoom', "room");
 	socket.on('join', room => {
     	socket.join("room");
@@ -40,4 +41,16 @@ io.on('connection', socket => {
 		console.log("send: ", msg)
 	})
 
+// 	socket.on('disconnect', function(){
+//     io.emit('users-changed', {user: socket.nickname, event: 'left'});   
+//   });
+ 
+//   socket.on('set-nickname', (nickname) => {
+//     socket.nickname = nickname;
+//     io.emit('users-changed', {user: nickname, event: 'joined'});    
+//   });
+  
+//   socket.on('add-message', (message) => {
+//     io.emit('message', {text: message.text, from: socket.nickname, created: new Date()});    
+//   });
 });
