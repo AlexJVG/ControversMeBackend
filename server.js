@@ -28,10 +28,16 @@ server.listen(8080);
 
 
 // io socket
+
 io.on('connection', socket => {
+	io.sockets.in("room").emit('connectToRoom', "room");
+	socket.on('join', room => {
+    	socket.join("room");
+    });
 	socket.on("chat message", function(msg){
 		socket.broadcast.emit('chat message', msg);
 		socket.emit('chat message', msg);
 		console.log("send: ", msg)
 	})
+
 });
