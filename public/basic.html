@@ -4,8 +4,25 @@
 	<title>Basic test</title>
 </head>
 <body>
-	<h1>Basic Info send</h1>
+	<h1 id='hi'>Basic Info send</h1>
 	<input id="btn" type="button" name="send" value="Send" onclick="submitMessage()">
 	<input id="mag" type="text" name="message" value="">
+	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.js"></script>
+	<script>
+		var socket = io.connect();
+		$(document).ready(function(){
+			socket.on('send', data => {
+				document.getElementById('hi').innerHTML = data;
+			});
+		});
+
+		function submitMessage() {
+			var message = $('#mag').val();
+			socket.emit("sendmsg", message);
+		}
+
+
+	</script>
 </body>
 </html>

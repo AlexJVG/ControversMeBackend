@@ -23,10 +23,15 @@ app.get('*', (req, res) => {
 	res.send(responses.error('404 Not Found'));
 });
 
+
 server.listen(8080);
 
 
 // io socket
 io.on('connection', socket => {
-	console.log("a new client connected");
+	socket.on("chat message", function(msg){
+		socket.broadcast.emit('chat message', msg);
+		socket.emit('chat message', msg);
+		console.log("send: ", msg)
+	})
 });
