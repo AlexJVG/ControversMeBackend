@@ -1,0 +1,22 @@
+{
+  "name": "controverseme",
+  "version": "1.0.0",
+  "description": "App for HSHacks",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexJVG/ControversMeBackend.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlexJVG/ControversMeBackend/issues"
+  },
+  "homepage": "https://github.com/AlexJVG/ControversMeBackend#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
