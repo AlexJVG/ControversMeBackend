@@ -1,13 +1,1 @@
-{
-	"users": {
-
-
-		"ajpat1234@gmal.com": {
-			"first_name": "Arjun",
-			"last_name": "Patrawala",
-			
-		}
-
-
-	}
-}
+{"users":{"customer004@email.com":{"first_name":"Customer004","last_name":"Customer004","username":"Test","email":"customer004@email.com","bio":"0000252525","password":"0000252525","points":0}}}

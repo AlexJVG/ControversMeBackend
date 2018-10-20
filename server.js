@@ -9,9 +9,18 @@ const io = require('socket.io')(server);
 const database = new (require('./lib/Database.js'));
 const responses = require('./lib/responses.js');
 
+const cors = require('cors');
+
 app.use('/', express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
+
+app.options('*', cors());
+app.use(cors({
+	origin: function (origin, callback) {
+		callback(null, true)
+	}
+}));
 
 app.post('/api/create-account', (req, res) => {
 
@@ -22,10 +31,19 @@ app.post('/api/create-account', (req, res) => {
 	const bio = req.body.bio;
 	const password = req.body.password;
 
-	database.addNewUser(firstName, lastName, username, email, bio, password);
+	console.log(req.body);
 
-	res.send(responses.success());
+	if (firstName && lastName && username && bio && password) {
+		if (database.addNewUser(firstName, lastName, username, email, bio, password)) {
+			res.send(responses.success());
+		} else {
+			res.send(responses.error('user_already_exists'));
+		}
 
+	} else {
+		res.send(responses.error('bad_data'));
+	}
+	
 });
 
 app.get('/egor/:hello', (req, res) => {
