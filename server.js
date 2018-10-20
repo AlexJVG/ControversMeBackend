@@ -19,8 +19,8 @@ app.use(cors({
 app.use('/', express.static(path.join(__dirname, 'public')));
 app.use('/api', require('./lib/routes/api.js'));
 
-app.get('*', (req, res) => {
-	res.send(responses.error('404 Not Found'));
+app.all('*', (req, res) => {
+	res.send(responses.error(404));
 });
 
 
