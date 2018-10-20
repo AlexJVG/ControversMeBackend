@@ -1,12 +1,21 @@
 const express = require('express');
 const app = express();
-const Database = require('./lib/Database.js');
+const database = new (require('./lib/Database.js'));
+const responses = require('./lib/responses.js');
 
 
+app.use(express.json());
 
-app.get('/', (req, res) => {
+app.get('/api/create-account', (req, res) => {
 
-	res.send('hello');
+	const firstName = req.body.first_name;
+	const lastName = req.body.last_name;
+	const email = req.body.email;
+	const bio = req.body.bio;
+
+	database.addNewUser(firstName, lastName, email, bio);
+
+	res.send(responses.success());
 
 });
 
@@ -14,6 +23,10 @@ app.get('/egor/:hello', (req, res) => {
 
 	res.send(req.params.hello);
 
+});
+
+app.get('*', (req, res) => {
+	res.send(responses.error('404 Not Found'));
 });
 
 app.listen(8080);
