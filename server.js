@@ -1,8 +1,13 @@
 const express = require('express');
 const app = express();
+const path = require('path')
+//const http = require('http').Server(app)
+const io = require('socket.io');
+const public = path.join(__dirname, 'public')
 const database = new (require('./lib/Database.js'));
 const responses = require('./lib/responses.js');
 
+app.use("/", express.static(public));
 
 app.use(express.json());
 
