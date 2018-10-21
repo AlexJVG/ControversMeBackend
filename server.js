@@ -21,7 +21,7 @@ app.use(cors({
 app.use('/', express.static(path.join(__dirname, 'public')));
 app.use('/api', require('./lib/routes/api.js').router);
 
-io.on('connection', require('./lib/routes/api.js').socketResponse);
+io.on('connection', require('./lib/routes/api.js').socketResponse(io));
 
 app.all('*', (req, res) => {
 	res.send(responses.error(404));
